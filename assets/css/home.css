@@ -1,0 +1,16 @@
+.vh-100 {
+	background-color: #f55656 !important;
+}
+#list1 .form-control {
+	border-color: transparent;
+}
+#list1 .form-control:focus {
+	border-color: transparent;
+	box-shadow: none;
+}
+#list1 .select-input.form-control[readonly]:not([disabled]) {
+	background-color: #fff6f6;
+}
+.add {
+	margin-top: 25px;
+}

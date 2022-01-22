@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="https://kit.fontawesome.com/29ee0bc57e.js" crossorigin="anonymous">
+    </script>
+    <style>
+
+    </style>
+    <title>ToDo List</title>
+    <link rel="stylesheet" href="../assets/css/home.css" <!-- bootstrap cdn -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+</head>
+
+<body>
+    <section class="vh-100">
+        <div class="container py-5 h-100">
+            <div class="row d-flex justify-content-center align-items-center h-90">
+                <div class="col">
+                    <div class="card" id="list1" style="border-radius: .75rem; background-color: #c1f3f7;">
+                        <div class="card-body py-4 px-4 px-md-5">
+                            <p class="h1 text-center mt-3 mb-4 pb-3 text-primary">
+                                <i class="fas fa-pen;color:#f7c1c1"></i>
+                                <u>To do list </u>
+                            </p>
+                            <form action="/add-task" method="post">
+                                <div class="pb-2">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div class="d-flex flex-row align-items-center">
+                                                <input type="text" name="title" class="form-control form-control-lg"
+                                                    id="exampleFormControlInput1" placeholder="Add new...">
+                                                <a href="#!" data-mdb-toggle="tooltip" title="Set due date"><input
+                                                        type="date" name="date" required></a>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <!--Specifying the category of the task-->
+                                        <div class="category-card col">
+                                            <div class="text-muted category">CATEGORY</div>
+                                            <select class="custom-select" name="category">
+                                                <option value="Personal">Personal</option>
+                                                <option value="Work">Work</option>
+                                                <option value="School">School</option>
+                                                <option value="Social">Social</option>
+                                                <option value="Other">Other</option>
+                                            </select>
+                                        </div>
+                                        <div class="col prioritybox">
+
+                                            <!-- adding priotiry -->
+                                            <div class="text-muted priority">PRIORITY</div>
+                                            <!-- three priotity user can add -->
+                                            <select class="custom-select" id="inputGroupSelect01" name="priority">
+                                                <option value="Important">Important</option>
+                                                <option value="Most Important">Most Important</option>
+                                                <option value="Not so Important">Not so Important</option>
+
+                                            </select>
+
+                                        </div>
+                                        <span class="add">
+                                            <button type="submit" class="btn btn-primary btn-sm">Add</button>
+                                        </span>
+
+                            </form>
+
+                        </div>
+                    </div>
+
+                    <hr class="my-4">
+
+                    <!-- deleting the task  -->
+                    <form action="/delete-task" method="get" class="aform">
+                        <button class="btn btn-outline-primary " type="submit">
+                            <i class="fas fa-trash-alt"></i> Delete Task </button>
+
+
+                        <div id="all_task">
+
+                        </div>
+                        <!-- condition fot list length -->
+                        <% if(todo_list.length!=0){ %>
+
+                            <!-- for loop for the task detaills -->
+                            <% for(let i of todo_list) { %>
+
+                                <div class="todo-list">
+                                    <div class="todo-item">
+                                        <div class="tick-box">
+                                            <input type="checkbox" class="select-task" id="checkbox" name="<%= i._id%>">
+                                        </div>
+                                        <div class="card-body task-body" id="tasks">
+                                            <h5 class="card-title control-me">
+                                                <%= i.title %>
+                                            </h5>
+                                            <p class="text-muted"><i class="far fa-calendar-alt"></i>
+                                                <%= i.date %>
+                                            </p>
+                                        </div>
+                                        <!-- the three priority mentioned selection  -->
+
+                                        <% if(i.priority=='Important' ) {%>
+                                            <h5><span class="badge badge-danger">Priority : <%= i.priority %></span>
+                                            </h5>
+                                            <% }%>
+
+                                                <% if(i.priority=='Most Important' ) {%>
+                                                    <h5><span class="badge badge-warning">Priority : <%= i.priority %>
+                                                        </span></h5>
+                                                    <% }%>
+
+                                                        <% if(i.priority=='Not so Important' ) {%>
+                                                            <h5><span class="badge badge-info">Priority : <%= i.priority
+                                                                        %></span></h5>
+                                                            <% }%>
+
+
+
+                                                                <!-- selection of the category -->
+                                                                <% if(i.category=='Personal' ) {%>
+                                                                    <h4><span class="badge badge-info"><i
+                                                                                class="fas fa-user-secret"></i>
+                                                                            <%= i.category %>
+                                                                        </span></h4>
+                                                                    <% }%>
+
+                                                                        <% if(i.category=='work' ) {%>
+                                                                            <h4><span class="badge badge-success"><i
+                                                                                        class="fas fa-briefcase"></i>
+                                                                                    <%= i.category %>
+                                                                                </span></h4>
+                                                                            <% }%>
+
+                                                                                <% if(i.category=='school' ) {%>
+                                                                                    <h4><span
+                                                                                            class="badge badge-primary"><i
+                                                                                                class="fas fa-graduation-cap"></i>
+                                                                                            <%= i.category %>
+                                                                                        </span></h4>
+                                                                                    <% }%>
+
+                                                                                        <% if(i.category=='Social' ) {%>
+                                                                                            <h4><span
+                                                                                                    class="badge badge-dark">
+                                                                                                    <i
+                                                                                                        class="fas fa-users"></i>
+                                                                                                    <%= i.category %>
+                                                                                                </span></h4>
+                                                                                            <% }%>
+
+                                                                                                <% if(i.category=='Other'
+                                                                                                    ) {%>
+                                                                                                    <h4><span
+                                                                                                            class="badge badge-default">
+                                                                                                            <%= i.category
+                                                                                                                %>
+                                                                                                        </span></h4>
+                                                                                                    <% }%>
+                                    </div>
+                                    <% } %>
+                                        <% } %>
+                                </div>
+                </div>
+            </div>
+            </form>
+        </div>
+
+        </li>
+        </ul>
+
+        </div>
+        </div>
+        </div>
+        </div>
+        </div>
+    </section>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj"
+        crossorigin="anonymous"></script>
+
+</body>
+
+</html>
